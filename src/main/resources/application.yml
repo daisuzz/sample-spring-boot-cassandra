@@ -1,0 +1,8 @@
+spring:
+  cassandra:
+    keyspace-name: example
+    schema-action: create_if_not_exists
+  docker:
+    compose:
+      readiness:
+        timeout: 3m

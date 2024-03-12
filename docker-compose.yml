@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  cassandra:
+    container_name: cassandra
+    image: cassandra:latest
+    ports:
+      - "9042"
+  cassandra-load-keyspace:
+    container_name: cassandra-load-keyspace
+    image: cassandra:latest
+    ports:
+      - "9043"
+    depends_on:
+      - cassandra
+    volumes:
+      - ./docker/cassandra/initdb/schema.cql:/schema.cql
+    command: /bin/bash -c "sleep 60 && echo loading cassandra keyspace && cqlsh cassandra -f /schema.cql"
